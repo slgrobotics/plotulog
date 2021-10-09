@@ -14,6 +14,7 @@ function plotUlog(varargin)
 % Website: https://github.com/kyuhyong/plotulog
 % Sep 2018; 
 % Revision: 2018/9/28
+% Revision: 2021/10/08 - modified by Sergei Grichine <slg@quakemap.com>
 %------------- BEGIN CODE --------------
   input_ulogFile = false;
   input_folderName = false;
@@ -58,6 +59,7 @@ function plotUlog(varargin)
   fname_lp_sp = sprintf("%slog%s_vehicle_local_position_setpoint_0.csv",folderName, fnum);
   fname_flow = sprintf("%slog%s_optical_flow_0.csv",folderName, fnum);
   fname_sens = sprintf("%slog%s_sensor_combined_0.csv",folderName, fnum);
+  fname_debug_array = sprintf("%slog%s_debug_array_0.csv",folderName, fnum);
   fname_debug_vect = sprintf("%slog%s_debug_vect_0.csv",folderName, fnum);
   fname_dist = sprintf("%slog%s_distance_sensor_0.csv",folderName, fnum);
   fname_input_rc = sprintf("%slog%s_input_rc_0.csv",folderName, fnum);
@@ -68,7 +70,8 @@ function plotUlog(varargin)
   fname_v_status = sprintf("%slog%s_vehicle_status_0.csv",folderName, fnum);
   
   %% Check files
-  data_att_avail = true; data_att_sp_avail = true; data_lp_avail = true; data_lp_sp_avail = true; data_dbg_vect_avail = true; data_flow_avail = true; 
+  data_att_avail = true; data_att_sp_avail = true; data_lp_avail = true; data_lp_sp_avail = true;
+  data_dbg_array_avail = true; data_dbg_vect_avail = true; data_flow_avail = true; 
   data_sensor_avail = true; data_distance_avail = true; data_input_rc_avail = true;
   data_air_data_avail = true; data_land_detect_avail = true; data_v_status_avail = true;
   
@@ -79,6 +82,7 @@ function plotUlog(varargin)
   if(!checkFile(fname_lp_sp)) data_lp_sp_avail = false; endif;
   if(!checkFile(fname_flow)) data_flow_avail = false; endif;
   if(!checkFile(fname_sens)) data_sensor_avail = false; endif;
+  if(!checkFile(fname_debug_array)) data_dbg_array_avail = false; endif;
   if(!checkFile(fname_debug_vect)) data_dbg_vect_avail = false; endif;
   if(!checkFile(fname_dist)) data_distance_avail = false; endif;
   if(!checkFile(fname_input_rc)) data_input_rc_avail = false; endif;
@@ -118,6 +122,12 @@ function plotUlog(varargin)
     lp_sp_xyz  = [ data_lp_sp(:,2) data_lp_sp(:,3) data_lp_sp(:,4) ];
     lp_sp_Vxyz = [ data_lp_sp(:,7) data_lp_sp(:,8) data_lp_sp(:,9) ];
   else time_lp_sp = 0; lp_sp_xyz = [ 0 0 0 ]; lp_sp_Vxyz = [ 0 0 0 ];
+  endif;
+  if(data_dbg_array_avail) 
+    data_dbg_array = dlmread(fname_debug_array,',',1,0);
+    time_dbg_array = data_dbg_array(:,1)/1000000; 
+    dbg_array_xyz = [ data_dbg_array(:,2) data_dbg_array(:,3) data_dbg_array(:,4) ];
+  else time_dbg_array = 0; dbg_array_xyz=[0 0 0];
   endif;
   if(data_dbg_vect_avail) 
     data_dbg_vect = dlmread(fname_debug_vect,',',1,0);
@@ -192,6 +202,9 @@ function plotUlog(varargin)
   %% Plot raw sensor data
   plotSensorData(time_sensor, gyro_xyz, acc_xyz, folderName);
   
+  %% Plot debug array data
+  plotDebugArray(time_dbg_array, dbg_array_xyz, folderName);
+
   %% Plot debug vector data
   plotDebugVect(time_dbg_vect, dbg_vect_xyz, folderName);
 
