@@ -43,6 +43,7 @@ function plotAltitudeControl(time_lp, lp_z, lp_vz, dist_z, dist_vz,
         'XMinorGrid','on', 'YMinorGrid','on', 'MinorGridLineStyle','-', ...
         'XTickLabel',[], 'YTickLabel',[]);
     xlabel(hAx1, ''), ylabel(hAx1, ''), title(hAx1, '')
+
   %% Draw plot for vertical speed control
   hAx3 =subplot(212);
     plot(time_lp, -lp_vz,'LineWidth',1.5);  

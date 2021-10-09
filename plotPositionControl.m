@@ -34,16 +34,17 @@ function plotPositionControl(time_lp, lp_xyz, lp_Vxyz,
       legend("Flow int Y", "RC Input Pitch");
       hold off;
   endif
+  
   %% Draw plot for position x, y control
   h_xy = figure(6,'Position',[700,750,600,400]);
   clf(h_xy);
   subplot(211)
-    plot(time_lp,lp_xyz(:,1), 'r-','LineWidth',1.5);
+    plot(time_lp,lp_xyz(:,3), 'r-','LineWidth',1.5);
     grid on;
     set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("X (m)");  title("Position X (To East)");
     xlim( [ time_lp(1) time_lp(length(time_lp)) ]);    
     hold on;
-    plot(time_sp, sp_xyz(:,1), 'LineWidth',1.5);
+    plot(time_sp, sp_xyz(:,3), 'LineWidth',1.5);
     legend("Local pos", "Set Point",'location','eastoutside');
     %% Add flags for state change
     yl = ylim;
@@ -71,13 +72,13 @@ function plotPositionControl(time_lp, lp_xyz, lp_Vxyz,
   h_vxy = figure(7,'Position',[750,600,600,400]);
   clf(h_vxy);
   subplot(211)
-    plot(time_lp,lp_Vxyz(:,1), 'LineWidth',1.5);
+    plot(time_lp,lp_Vxyz(:,3), 'LineWidth',1.5);
     xlim( [ time_lp(1) time_lp(length(time_lp)) ]);
     grid on;
     set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("X speed (m/s)");  title("Velocity X (To North)");
     xlim( [ time_lp(1) time_lp(length(time_lp)) ]);
     hold on;
-    plot(time_sp, sp_Vxyz(:,1),'LineWidth',1);
+    plot(time_sp, sp_Vxyz(:,3),'LineWidth',1);
     legend("Local pos", "Set Point",'location','eastoutside');
     %% Add flags for state change
     yl = ylim;
@@ -92,7 +93,7 @@ function plotPositionControl(time_lp, lp_xyz, lp_Vxyz,
     xlim( [ time_lp(1) time_lp(length(time_lp)) ]);
     hold on;
     plot(time_sp, sp_Vxyz(:,2),'LineWidth',1);
-    legend("Local pos", "Set Point",'location','eastoutside');
+    legend("Speed m/s", "Set Point",'location','eastoutside');
     %% Add flags for state change
     yl = ylim;
     flagYstep = (yl(2) - yl(1))/15;
@@ -102,18 +103,27 @@ function plotPositionControl(time_lp, lp_xyz, lp_Vxyz,
   print(h_vxy, saveName, "-dpdf","-color","-S400,800");
   print(h_vxy, saveName, "-dpng","-color", "-r200");
   
+  %% Draw 2-D position estimation
+  interval = time_lp(2)-time_lp(1);
+  figure(8,'Position',[800,450,600,400]);
+  h = plot(lp_xyz(:,3), lp_xyz(:,2), 'LineWidth', 1.5);
+  grid minor;
+  xlabel("X (m)");  ylabel("Y (m)"); title("Position Estimation X,Y,Z");
+
+  %{
   %% Draw 3-D position estimation
   interval = time_lp(2)-time_lp(1);
   figure(8,'Position',[800,450,600,400]);
-  h = plot3(lp_xyz(:,1), lp_xyz(:,2), -lp_xyz(:,3), 'LineWidth', 1.5);
+  h = plot3(lp_xyz(:,3), lp_xyz(:,2), -lp_xyz(:,1), 'LineWidth', 1.5);
   grid minor;
-  xlabel("X (m)");  ylabel("Y (m)"); zlabel("Height (m)"); title("Position Estimation X,Y,Z");
+  xlabel("X (m)");  ylabel("Y (m)"); zlabel("Alt (m)"); title("Position Estimation X,Y,Z");
   for k=1:length(lp_xyz(:,1));
-    set(h, 'XData', lp_xyz((1:k),1));
+    set(h, 'XData', lp_xyz((1:k),3));
     set(h, 'YData', lp_xyz((1:k),2));
-    set(h, 'ZData', -lp_xyz((1:k),3));
+    set(h, 'ZData', lp_xyz((1:k),1));
     pause (0.01); % delay in seconds
     % alternatively could provide a velocity function
     % pause(sqrt(vx(k)^2+vy(k)^2+vz(k)^2));  
   endfor
+  %}
 endfunction

@@ -1,5 +1,5 @@
 function plotSensorData(time, gyro_xyz, accel_xyz, path)
-  h_sens = figure(3,'Position',[50,700,600,400]);
+  h_sens = figure(3,'Position',[100,50,2300,800]);
   clf(h_sens);
   subplot(211)
     plot(time, gyro_xyz(:,1));

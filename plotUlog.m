@@ -122,7 +122,7 @@ function plotUlog(varargin)
   if(data_dbg_vect_avail) 
     data_dbg_vect = dlmread(fname_debug_vect,',',1,0);
     time_dbg_vect = data_dbg_vect(:,1)/1000000; 
-    dbg_vect_xyz = [ data_dbg_vect(:,3) data_dbg_vect(:,4) data_dbg_vect(:,5) ];
+    dbg_vect_xyz = [ data_dbg_vect(:,2) data_dbg_vect(:,3) data_dbg_vect(:,4) ];
   else time_dbg_vect = 0; dbg_vect_xyz=[0 0 0];
   endif;
   if(data_flow_avail)
@@ -182,13 +182,20 @@ function plotUlog(varargin)
   else
     time_v_status = 0; v_status = [0 0 0 0];
   endif
+
   %% Plot attitude control
   plotAttitudeControl(time_att, att_rpy, att_q, 
     time_att_sp, att_rpy_sp, 
     time_input_rc, input_rc, 
     folderName);
+    
   %% Plot raw sensor data
   plotSensorData(time_sensor, gyro_xyz, acc_xyz, folderName);
+  
+  %% Plot debug vector data
+  plotDebugVect(time_dbg_vect, dbg_vect_xyz, folderName);
+
+  %{ 
   %% Plot for Z axis data
   plotAltitudeControl(time_lp, lp_xyz(:,3), lp_Vxyz(:,3), dist_z, dist_vz, 
     time_lp_sp, lp_sp_xyz(:,3), lp_sp_Vxyz(:,3), 
@@ -198,6 +205,8 @@ function plotUlog(varargin)
     time_land_detect, land_detect,
     time_v_status, v_status,
     folderName);
+  %}
+   
   %% Plot for x, y, z axis data
   plotPositionControl(time_lp, lp_xyz, lp_Vxyz, 
     time_lp_sp, lp_sp_xyz, lp_sp_Vxyz, 
@@ -205,10 +214,12 @@ function plotUlog(varargin)
     time_input_rc, input_rc, 
     time_v_status, v_status,
     folderName);
+    
+  %{
   %% Plot power source
   plotPower(time_pwr_sys, pwr_sys_5v, 
     time_batt, batt_V, batt_curr, batt_disch_mah, 
     folderName);
-  
+  %}
 endfunction
 %------------- END OF CODE --------------
