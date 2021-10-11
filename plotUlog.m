@@ -124,10 +124,12 @@ function plotUlog(varargin)
   else time_lp_sp = 0; lp_sp_xyz = [ 0 0 0 ]; lp_sp_Vxyz = [ 0 0 0 ];
   endif;
   if(data_dbg_array_avail) 
+    printf("data_dbg_array_avail\n");
     data_dbg_array = dlmread(fname_debug_array,',',1,0);
-    time_dbg_array = data_dbg_array(:,1)/1000000; 
-    dbg_array_xyz = [ data_dbg_array(:,2) data_dbg_array(:,3) data_dbg_array(:,4) ];
-  else time_dbg_array = 0; dbg_array_xyz=[0 0 0];
+    time_dbg_array = data_dbg_array(:,1)/1000000;
+    nvalues_dbg_array = data_dbg_array(1,2);
+    dbg_array_values = data_dbg_array(:, 3 : nvalues_dbg_array+2);
+  else time_dbg_array = 0; nvalues_dbg_array = 0; dbg_array_values=[0 0 0];
   endif;
   if(data_dbg_vect_avail) 
     data_dbg_vect = dlmread(fname_debug_vect,',',1,0);
@@ -193,6 +195,7 @@ function plotUlog(varargin)
     time_v_status = 0; v_status = [0 0 0 0];
   endif
 
+  %{
   %% Plot attitude control
   plotAttitudeControl(time_att, att_rpy, att_q, 
     time_att_sp, att_rpy_sp, 
@@ -201,15 +204,16 @@ function plotUlog(varargin)
     
   %% Plot raw sensor data
   plotSensorData(time_sensor, gyro_xyz, acc_xyz, folderName);
+  %}
   
-  %% Plot debug array data
-  plotDebugArray(time_dbg_array, dbg_array_xyz, folderName);
+  %% Plot debug array data. nvalues_dbg_array is how many of the 58 max floats is passed in every sample.
+  plotDebugArray(time_dbg_array, nvalues_dbg_array, dbg_array_values, folderName, fname_debug_array);
 
+ %{ 
   %% Plot debug vector data
   plotDebugVect(time_dbg_vect, dbg_vect_xyz, folderName);
 
-  %{ 
-  %% Plot for Z axis data
+   %% Plot for Z axis data
   plotAltitudeControl(time_lp, lp_xyz(:,3), lp_Vxyz(:,3), dist_z, dist_vz, 
     time_lp_sp, lp_sp_xyz(:,3), lp_sp_Vxyz(:,3), 
     time_dist, current_distance, 
@@ -218,7 +222,6 @@ function plotUlog(varargin)
     time_land_detect, land_detect,
     time_v_status, v_status,
     folderName);
-  %}
    
   %% Plot for x, y, z axis data
   plotPositionControl(time_lp, lp_xyz, lp_Vxyz, 
@@ -227,6 +230,7 @@ function plotUlog(varargin)
     time_input_rc, input_rc, 
     time_v_status, v_status,
     folderName);
+  %}
     
   %{
   %% Plot power source
