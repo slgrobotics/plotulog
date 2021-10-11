@@ -9,57 +9,200 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   printf("                   folder: %s\n", folderName);
   printf("                   file: %s\n", fname);
   
-  data_start_column = 1; % each plot starts here in the dbg_array_values
+  linewidth = 3;
+  plot_width = 2300;
+  plot_height = 300;
   x_pos = 100;
-  y_pos = 400;
+  y_pos = 1000;
   n_figure = 22;
+
+  data_start_column = 1; % each plot starts here in the dbg_array_values
   
-  h_dbg1 = figure(n_figure,'Position',[x_pos,y_pos,2300,800]);
+  h_dbg1 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
   clf(h_dbg1);
   %subplot(111)
-    plot(time, dbg_array_values(:,1));
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     grid on;
     xlim( [ time(1) time(length(time)) ]);
     % comment out line below for Y autorange:
     %ylim( [ -1 ceil(findMax(dbg_array_values(:,1),dbg_array_values(:,2),dbg_array_values(:,3)) / 3) ]);
     %ylim( [ -1 20 ]);
-    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");  title("Debug Array Values - L1 controller");
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - L1 controller");
     %set (gca, "Motion", "horizontal", "Enable", "on");
     %zoomHandle = zoom(h_dbg1);
     %setAxesZoomMotion(zoomHandle, AxesH, "horizontal");
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++));  
-    plot(time, dbg_array_values(:,data_start_column++));
-    plot(time, dbg_array_values(:,data_start_column++));  
-    plot(time, dbg_array_values(:,data_start_column++));
-    plot(time, dbg_array_values(:,data_start_column++));  
-    plot(time, dbg_array_values(:,data_start_column++));
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     legend("target bearing", "nav bearing", "crosstrack error","crosstrack dist","L1 skipped to B","L1 nav state",'location','eastoutside');
     hold off;
   
   %data_start_column += 3;  % skip some, if needed
-  x_pos += 10;
-  y_pos -= 10;
+  x_pos += 0;
+  y_pos -= plot_height + 70;
   n_figure++;
   
-  h_dbg2 = figure(n_figure,'Position',[x_pos,y_pos,2300,800]);
+  h_dbg2 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
   newplot(h_dbg2);
   clf(h_dbg2);
   %subplot(111)
-    plot(time, dbg_array_values(:,1));
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     grid on;
     xlim( [ time(1) time(length(time)) ]);
-    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");  title("Debug Array Values - Mission Efforts and Actuator Controls");
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - Mission Efforts and Actuator Controls");
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++));  
-    plot(time, dbg_array_values(:,data_start_column++));
-    plot(time, dbg_array_values(:,data_start_column++));  
-    plot(time, dbg_array_values(:,data_start_column++));
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     legend("mission yaw effort", "mission throttle", "act controls yaw","act controls throttle",'location','eastoutside');
+    hold off;
+    
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += 0;
+  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  n_figure++;
+  
+  h_dbg3 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg3);
+  clf(h_dbg3);
+  %subplot(111)
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - Ground Speed and Direction");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    legend("current heading", "heading error", "ground speed abs","ground speed abs prev", "ground speed ns",'location','eastoutside');
+    hold off;
+    
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += 0;
+  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  n_figure++;
+  
+  h_dbg4 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg4);
+  clf(h_dbg4);
+  %subplot(111)
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - Ground Speed PID");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    legend("mission target speed", "x vel", "x acc",'location','eastoutside');
+    hold off;
+    
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += 0;
+  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  n_figure++;
+  
+  h_dbg5 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg5);
+  clf(h_dbg5);
+  %subplot(111)
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - Heading PID");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    legend("mission target heading err", "z heading err", "heading yaw effort",'location','eastoutside');
+    hold off;
+    
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += 0;
+  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  n_figure++;
+  
+  h_dbg6 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg6);
+  clf(h_dbg6);
+  %subplot(111)
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - Yaw Rate PID");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)/1000, "linewidth", linewidth);  
+    legend("mission target yaw rate", "z yaw", "z yaw prev", "z yaw rate",'location','eastoutside');
+    hold off;
+    
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += 0;
+  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  n_figure++;
+  
+  h_dbg7 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg7);
+  clf(h_dbg7);
+  %subplot(111)
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - Distances etc.");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    legend("distance target", "wp current dist", "wp previous dist", "wp next dist",'location','eastoutside');
+    hold off;
+    
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += 0;
+  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  n_figure++;
+  
+  h_dbg8 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg8);
+  clf(h_dbg8);
+  %subplot(111)
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - Other Values");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++)/1000, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    legend("isSharpTurn", "desired r", "nav lateral acceleration demand", "desired theta","control effort","wp close enough rad",'location','eastoutside');
     hold off;
     
   % Saving to PDF and PNG formats:
