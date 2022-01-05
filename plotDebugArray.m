@@ -37,9 +37,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold on;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)-0.1, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)-4.0, "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++)+0.1, "linewidth", linewidth);
     legend("target bearing", "nav bearing", "crosstrack error","crosstrack dist","L1 skipped to B","L1 nav state",'location','eastoutside');
     hold off;
   
@@ -60,8 +60,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++)-0.015, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)-0.015, "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     legend("mission yaw effort", "mission throttle", "act controls yaw","act controls throttle",'location','eastoutside');
     hold off;
@@ -174,7 +174,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)+0.3, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     legend("distance target", "wp current dist", "wp previous dist", "wp next dist",'location','eastoutside');
