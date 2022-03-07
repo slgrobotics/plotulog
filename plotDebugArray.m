@@ -12,9 +12,13 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   linewidth = 3;
   plot_width = 2300;
   plot_height = 300;
-  x_pos = 100;
-  y_pos = 1000;
+  x_pos = 200;
+  y_pos_start = 900;
+  y_pos = y_pos_start;
   n_figure = 22;
+
+  x_pos_shift = -15;
+  y_pos_shift = -180;
 
   data_start_column = 1; % each plot starts here in the dbg_array_values
   
@@ -39,13 +43,13 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-0.1, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)-4.0, "linewidth", linewidth);  
-    plot(time, dbg_array_values(:,data_start_column++)*1e-08, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     legend("target bearing", "nav bearing", "crosstrack error","crosstrack dist","L1 skipped to B","L1 nav state",'location','eastoutside');
     hold off;
   
   %data_start_column += 3;  % skip some, if needed
-  x_pos += 0;
-  y_pos -= plot_height + 70;
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift;
   n_figure++;
   
   h_dbg2 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
@@ -63,12 +67,13 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++)-0.015, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-0.015, "linewidth", linewidth);
-    legend("mission yaw effort", "act controls yaw", "mission throttle", "act controls throttle",'location','eastoutside');
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    legend("yaw - mission effort", "yaw - act controls", "throttle - mission", "throttle - act controls","_pos_ctrl_state",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
-  x_pos += 0;
-  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
   h_dbg3 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
@@ -91,8 +96,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
-  x_pos += 0;
-  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
   h_dbg4 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
@@ -114,8 +119,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
-  x_pos += 0;
-  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
   h_dbg5 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
@@ -136,8 +141,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
-  x_pos += 0;
-  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
   h_dbg6 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
@@ -159,8 +164,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
-  x_pos += 0;
-  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
   h_dbg7 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
@@ -182,8 +187,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
-  x_pos += 0;
-  y_pos -= plot_height + 70; if(y_pos < 0) y_pos = 1000; endif
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
   h_dbg8 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
