@@ -68,7 +68,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-0.015, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    legend("yaw - mission effort", "yaw - act controls", "throttle - mission", "throttle - act controls","_pos_ctrl_state",'location','eastoutside');
+    legend("yaw - mission effort", "yaw - act controls", "throttle - mission", "throttle - act controls","machine state",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
