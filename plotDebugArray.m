@@ -88,9 +88,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    legend("mission target heading err", "z heading err", "heading yaw effort",'location','eastoutside');
+    plot(time, dbg_array_values(:,data_start_column++)+0.02, "linewidth", linewidth);
+    legend("z heading err", "heading yaw effort",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -110,10 +109,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)+0.1, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    legend("mission target yaw rate", "z yaw", "z yaw prev", "z yaw rate",'location','eastoutside');
+    legend("z yaw", "z yaw prev", "z yaw rate",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed

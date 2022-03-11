@@ -36,7 +36,7 @@ function plotUlog(varargin)
       cmd = sprintf("mkdir %s", folderName);
       if(system(cmd)==0)
         cmd = sprintf("ulog2csv %s -o %s", ulogFileName, folderName);
-        disp("Covnerting ulg to csv..."); system(cmd);
+        disp("Converting ulg to csv..."); system(cmd);
       else
         disp("Folder exists")
       endif
