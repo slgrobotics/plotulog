@@ -19,6 +19,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
 
   x_pos_shift = -15;
   y_pos_shift = -180;
+  vis_shift = 0.03;
 
   data_start_column = 1; % each plot starts here in the dbg_array_values
   
@@ -43,7 +44,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-0.1, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)-4.0, "linewidth", linewidth);  
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     legend("target bearing", "nav bearing", "crosstrack error","crosstrack dist","L1 skipped to B","L1 nav state",'location','eastoutside');
     hold off;
   
@@ -64,9 +65,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++)-0.02, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)-vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)-2.0, "linewidth", linewidth);  
-    plot(time, dbg_array_values(:,data_start_column++)-2.02, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)-2.0 - vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     legend("current heading", "heading error", "yaw - mission effort", "yaw - act controls", "machine state",'location','eastoutside');
     hold off;
@@ -88,7 +89,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++)+0.02, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     legend("z heading err", "heading yaw effort",'location','eastoutside');
     hold off;
     
@@ -123,7 +124,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   newplot(h_dbg3);
   clf(h_dbg3);
   %subplot(111)
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++)-2.0, "linewidth", linewidth);  
     grid on;
     xlim( [ time(1) time(length(time)) ]);
     set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
@@ -131,9 +132,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++)-0.02, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)-vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    plot(time, dbg_array_values(:,data_start_column++)-0.02, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)-vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     legend("throttle - mission", "throttle - act controls","ground speed abs","ground speed abs prev", "ground speed ns",'location','eastoutside');
     hold off;
@@ -157,9 +158,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold on;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, min(max(dbg_array_values(:,data_start_column++),-1.9),1.9)-2.0, "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("mission target speed", "x vel", "x acc","speed_proximity_factor","throttle - act controls",'location','eastoutside');
+    legend("mission target speed", "x vel", "x acc","speed proximity factor","throttle - act controls",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
