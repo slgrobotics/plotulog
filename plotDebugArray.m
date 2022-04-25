@@ -12,8 +12,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   linewidth = 3;
   plot_width = 2300;
   plot_height = 300;
-  x_pos = 200;
-  y_pos_start = 900;
+  x_pos = 250;
+  y_pos_start = 950;
   y_pos = y_pos_start;
   n_figure = 22;
 
@@ -77,9 +77,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
-  h_dbg5 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
-  newplot(h_dbg5);
-  clf(h_dbg5);
+  h_dbg3 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg3);
+  clf(h_dbg3);
   %subplot(111)
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     grid on;
@@ -98,9 +98,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
-  h_dbg6 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
-  newplot(h_dbg6);
-  clf(h_dbg6);
+  h_dbg4 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg4);
+  clf(h_dbg4);
   %subplot(111)
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     grid on;
@@ -120,9 +120,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
-  h_dbg3 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
-  newplot(h_dbg3);
-  clf(h_dbg3);
+  h_dbg5 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg5);
+  clf(h_dbg5);
   %subplot(111)
     plot(time, dbg_array_values(:,data_start_column++)-2.0, "linewidth", linewidth);  
     grid on;
@@ -144,9 +144,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
   n_figure++;
   
-  h_dbg4 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
-  newplot(h_dbg4);
-  clf(h_dbg4);
+  h_dbg6 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg6);
+  clf(h_dbg6);
   %subplot(111)
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     grid on;
@@ -207,11 +207,38 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    %plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth); % "wp close enough rad",
-    %plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth); % "acceptance rad",
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth); % "wp close enough rad",
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth); % "acceptance rad",
     legend("isSharpTurn", "desired r", "nav lateral acceleration demand", "desired theta","control effort",'location','eastoutside');
     hold off;
     
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
+  n_figure++;
+  
+  h_dbg9 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbg9);
+  clf(h_dbg9);
+  %subplot(111)
+    %data_start_column += 1;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - GPS Performance.");
+    zoom off;
+    zoom xon;
+    hold on;
+    %plot(time, min(max(dbg_array_values(:,data_start_column++),-10),10), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    legend("fix type", "GPS speed", "EKF speed", "GPS heading", "EKF heading", "GPS heading internal",'location','eastoutside');
+    hold off;
+
   % Saving to PDF and PNG formats:
   % saveName = sprintf("%sDebug_Array", folderName)
   % print(h_dbg1, saveName, "-dpdf","-color","-S600,800");
