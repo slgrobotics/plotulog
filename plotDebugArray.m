@@ -234,7 +234,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("fix type", "GPS speed", "EKF speed", "GPS heading", "EKF heading", 'location','eastoutside');
+    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
+    legend("fix type", "GPS speed", "EKF speed", "GPS heading", "EKF heading", "GPS course ovr gnd", 'location','eastoutside');
     hold off;
 
   %data_start_column += 3;  % skip some, if needed
