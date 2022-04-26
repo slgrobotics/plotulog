@@ -226,17 +226,63 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     grid on;
     xlim( [ time(1) time(length(time)) ]);
     set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
-    title("Debug Array Values - GPS Performance.");
+    title("Debug Array Values - GPS Performance - Comparing to EKF2.");
     zoom off;
     zoom xon;
     hold on;
-    %plot(time, min(max(dbg_array_values(:,data_start_column++),-10),10), "linewidth", linewidth);  
+   plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    legend("fix type", "GPS speed", "EKF speed", "GPS heading", "EKF heading", 'location','eastoutside');
+    hold off;
+
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
+  n_figure++;
+  
+  h_dbgA = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbgA);
+  clf(h_dbgA);
+  %subplot(111)
+    %data_start_column += 1;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    legend("fix type", "GPS speed", "EKF speed", "GPS heading", "EKF heading", "GPS heading internal",'location','eastoutside');
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - GPS Performance - Speed.");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    legend("vel-ms", "vel-N", "vel-E", "vel-ned-valid", 'location','eastoutside');
+    hold off;
+
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
+  n_figure++;
+  
+  h_dbgB = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbgB);
+  clf(h_dbgB);
+  %subplot(111)
+    %data_start_column += 1;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - GPS Performance Metrics.");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    legend("N sat", "noise", "jamming_indicator", "jamming_state", 'location','eastoutside');
     hold off;
 
   % Saving to PDF and PNG formats:
