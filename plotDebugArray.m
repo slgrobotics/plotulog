@@ -157,10 +157,11 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom xon;
     hold on;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, min(max(dbg_array_values(:,data_start_column++),-1.9),1.9)-2.0, "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("mission target speed", "x vel", "x acc","speed proximity factor","throttle - act controls",'location','eastoutside');
+    legend("mission target speed","ground speed abs", "x vel", "x acc","speed proximity factor","throttle - act controls",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -230,7 +231,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-   plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
