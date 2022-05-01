@@ -156,9 +156,10 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
+    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, min(max(dbg_array_values(:,data_start_column++),-1.9),1.9)-2.0, "linewidth", linewidth);  
+    data_start_column += 1;  % skip x_acc
+    %plot(time, min(max(dbg_array_values(:,data_start_column++),-1.9),1.9)-2.0, "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     legend("mission target speed","ground speed abs", "x vel", "x acc","speed proximity factor","throttle - act controls",'location','eastoutside');
@@ -272,7 +273,6 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   newplot(h_dbgB);
   clf(h_dbgB);
   %subplot(111)
-    %data_start_column += 1;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     grid on;
     xlim( [ time(1) time(length(time)) ]);
@@ -284,7 +284,29 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("N sat", "noise", "jamming_indicator", "jamming_state", 'location','eastoutside');
+    legend("N sat", "noise", "jamming indicator", "jamming state", 'location','eastoutside');
+    hold off;
+
+  %data_start_column += 3;  % skip some, if needed
+  x_pos += x_pos_shift;
+  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
+  n_figure++;
+  
+  h_dbgB = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
+  newplot(h_dbgB);
+  clf(h_dbgB);
+  %subplot(111)
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    grid on;
+    xlim( [ time(1) time(length(time)) ]);
+    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
+    title("Debug Array Values - Servo Positions.");
+    zoom off;
+    zoom xon;
+    hold on;
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    legend("Gas Engine Throttle", "Tool - Blades", "Second Tool", 'location','eastoutside');
     hold off;
 
   % Saving to PDF and PNG formats:
