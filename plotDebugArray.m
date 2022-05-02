@@ -158,8 +158,6 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold on;
     plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    data_start_column += 1;  % skip x_acc
-    %plot(time, min(max(dbg_array_values(:,data_start_column++),-1.9),1.9)-2.0, "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     legend("mission target speed","ground speed abs", "x vel", "x acc","speed proximity factor","throttle - act controls",'location','eastoutside');
@@ -233,11 +231,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom xon;
     hold on;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
-    legend("fix type", "GPS speed", "EKF speed", "GPS heading", "EKF heading", "GPS course ovr gnd", 'location','eastoutside');
+    legend("GPS heading", "EKF heading", "GPS course ovr gnd", 'location','eastoutside');
     hold off;
 
   %data_start_column += 3;  % skip some, if needed
@@ -261,7 +256,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("vel-ms", "vel-N", "vel-E", "vel-ned-valid", 'location','eastoutside');
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    legend("GPS speed", "EKF speed", "vel-ms", "vel-N", "vel-E", "vel-ned-valid", 'location','eastoutside');
     hold off;
 
   %data_start_column += 3;  % skip some, if needed
@@ -284,7 +281,8 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("N sat", "noise", "jamming indicator", "jamming state", 'location','eastoutside');
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    legend("fix type", "N sat", "noise", "jamming indicator", "jamming state", 'location','eastoutside');
     hold off;
 
   %data_start_column += 3;  % skip some, if needed
@@ -305,8 +303,10 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom xon;
     hold on;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("Gas Engine Throttle", "Tool - Blades", "Second Tool", 'location','eastoutside');
+    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
+    legend("Gas Engine Throttle", "Tool - Blades", "Second Tool", "Left Wheel", "Right Wheel", 'location','eastoutside');
     hold off;
 
   % Saving to PDF and PNG formats:
