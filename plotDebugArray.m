@@ -90,7 +90,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom xon;
     hold on;
     plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
-    legend("z heading err", "heading yaw effort",'location','eastoutside');
+    legend("control effort", "heading yaw effort",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -245,7 +245,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   clf(h_dbgA);
   %subplot(111)
     %data_start_column += 1;
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);  
     grid on;
     xlim( [ time(1) time(length(time)) ]);
     set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
@@ -278,11 +278,11 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
+    plot(time, dbg_array_values(:,data_start_column++)/10, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)/10, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("fix type", "N sat", "noise", "jamming indicator", "jamming state", 'location','eastoutside');
+    legend("fix type", "N sat/10", "noise/10", "jamming indicator", "jamming state", 'location','eastoutside');
     hold off;
 
   %data_start_column += 3;  % skip some, if needed
