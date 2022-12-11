@@ -231,8 +231,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom xon;
     hold on;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
-    legend("GPS heading", "EKF heading", "GPS course ovr gnd", 'location','eastoutside');
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
+    plot(time, wrap_pi(dbg_array_values(:,data_start_column++))+vis_shift, "linewidth", linewidth);
+    legend("EKF heading", "Mag heading", "GPS heading", "GPS course ovr gnd", 'location','eastoutside');
     hold off;
 
   %data_start_column += 3;  % skip some, if needed
@@ -314,3 +315,17 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   % print(h_dbg1, saveName, "-dpdf","-color","-S600,800");
   % print(h_dbg1, saveName, "-dpng","-color", "-r200");
 endfunction
+
+function ret = wrap_pi(x)
+  %M_PI_PRECISE =	3.141592653589793238462643383279502884;
+  high = 180;   % M_PI_PRECISE
+  low = -180;   % -M_PI_PRECISE
+	range = high - low;
+
+	if (x < low)
+		x += range * ((low - x) / range + 1);
+  endif
+  
+	ret = low + rem(x - low, range);
+endfunction
+
