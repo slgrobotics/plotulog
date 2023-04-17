@@ -69,7 +69,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++)-2.0, "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-2.0 - vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    legend("current heading", "heading error", "yaw - mission effort", "yaw - act controls", "machine state",'location','eastoutside');
+    legend("current heading", "heading error", "yaw - mission effort", "torque - act controls", "machine state",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -85,35 +85,15 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     grid on;
     xlim( [ time(1) time(length(time)) ]);
     set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
-    title("Debug Array Values - Heading PID");
+    title("Debug Array Values - Heading and Yaw Rate cascade PID");
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("control effort", "heading yaw effort", "heading rate effort",'location','eastoutside');
-    hold off;
-    
-  %data_start_column += 3;  % skip some, if needed
-  x_pos += x_pos_shift;
-  y_pos -= plot_height + y_pos_shift; if(y_pos < 0) y_pos = y_pos_start; endif
-  n_figure++;
-  
-  h_dbg4 = figure(n_figure,'Position',[x_pos,y_pos,plot_width,plot_height]);
-  newplot(h_dbg4);
-  clf(h_dbg4);
-  %subplot(111)
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    grid on;
-    xlim( [ time(1) time(length(time)) ]);
-    set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
-    title("Debug Array Values - Yaw Rate PID");
-    zoom off;
-    zoom xon;
-    hold on;
-    plot(time, dbg_array_values(:,data_start_column++)+0.1, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    legend("z yaw", "z yaw prev", "z yaw rate",'location','eastoutside');
+    legend("current heading", "control effort", "heading yaw effort", "heading rate effort", "z yaw rate",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -129,7 +109,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     grid on;
     xlim( [ time(1) time(length(time)) ]);
     set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
-    title("Debug Array Values - Ground Speed and Throttle effort");
+    title("Debug Array Values - Ground Speed and Thrust effort");
     zoom off;
     zoom xon;
     hold on;
@@ -137,7 +117,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("throttle - mission", "throttle - act controls","ground speed abs","ground speed abs prev", "ground speed ns",'location','eastoutside');
+    legend("thrust - mission", "thrust - act controls","ground speed abs","ground speed abs ema", "ground speed ns",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -161,7 +141,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("mission target speed","ground speed abs", "x vel", "x acc","speed proximity factor","throttle - act controls",'location','eastoutside');
+    legend("mission target speed","ground speed abs", "x vel", "speed proximity factor","thrust - act controls",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -296,7 +276,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
   newplot(h_dbgB);
   clf(h_dbgB);
   %subplot(111)
-    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
+    plot(time, dbg_array_values(:,data_start_column++)+5, "linewidth", linewidth);  
     grid on;
     xlim( [ time(1) time(length(time)) ]);
     set (gca, "xminorgrid", "on");  xlabel("Time(sec)");  ylabel("Value");
@@ -305,9 +285,9 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom xon;
     hold on;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)+5, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)+5, "linewidth", linewidth);
     legend("Gas Engine Throttle", "Tool - Blades", "Second Tool", "Left Wheel", "Right Wheel", 'location','eastoutside');
     hold off;
 
