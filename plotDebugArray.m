@@ -117,7 +117,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("thrust - mission", "thrust - act controls","ground speed abs","ground speed abs ema", "ground speed ns",'location','eastoutside');
+    legend("thrust - mission", "thrust - act controls","ground speed abs","x vel", "ground speed ns",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -141,7 +141,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("mission target speed","ground speed abs", "x vel", "speed proximity factor","thrust - act controls",'location','eastoutside');
+    legend("mission target speed","x vel", "x vel ema", "speed proximity factor","thrust - act controls",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
