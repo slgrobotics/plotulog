@@ -19,7 +19,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
 
   x_pos_shift = -15;
   y_pos_shift = -180;
-  vis_shift = 0.03;
+  vis_shift = 0.06;
 
   data_start_column = 1; % each plot starts here in the dbg_array_values
   
@@ -42,10 +42,10 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     hold on;
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    plot(time, dbg_array_values(:,data_start_column++)-0.1, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)-4.0, "linewidth", linewidth);  
-    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
-    legend("target bearing", "nav bearing", "crosstrack error","crosstrack dist","L1 skipped to B","L1 nav state",'location','eastoutside');
+    plot(time, min(max(dbg_array_values(:,data_start_column++),-1.0),1.0), "linewidth", linewidth);
+    legend("target bearing", "nav bearing", "curr heading","crstrack err m","torque effort-4","abbe error m",'location','eastoutside');
     hold off;
   
   %data_start_column += 3;  % skip some, if needed
@@ -65,11 +65,11 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++)-vis_shift, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)-2.0, "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-2.0 - vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
-    legend("current heading", "heading error", "torque - mission effort", "torque - act controls", "machine state",'location','eastoutside');
+    legend("current heading", "heading error", "torque - mission effort-2", "torque - act controls-2", "machine state",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -93,7 +93,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)+1.0, "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-2.0, "linewidth", linewidth);  
-    legend("current heading", "mission turning setpoint", "yaw rate setpoint", "mission torque effort", "z yaw rate",'location','eastoutside');
+    legend("current heading", "mission turning setpoint+2", "yaw rate setpoint", "mission torque effort+1", "z yaw rate-2",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -117,7 +117,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);  
     plot(time, dbg_array_values(:,data_start_column++)-vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
-    legend("thrust - mission effort", "thrust - act controls","ground speed abs","x vel", "ground speed ns",'location','eastoutside');
+    legend("thrust - mission effort-2", "thrust - act controls","ground speed abs","x vel", "ground speed ns",'location','eastoutside');
     hold off;
     
   %data_start_column += 3;  % skip some, if needed
@@ -137,7 +137,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     zoom off;
     zoom xon;
     hold on;
-    plot(time, dbg_array_values(:,data_start_column++)+vis_shift, "linewidth", linewidth);
+    plot(time, dbg_array_values(:,data_start_column++)-vis_shift, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
@@ -285,7 +285,7 @@ function plotDebugArray(time, nvalues_dbg_array, dbg_array_values, folderName, f
     plot(time, dbg_array_values(:,data_start_column++)+5, "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++), "linewidth", linewidth);
     plot(time, dbg_array_values(:,data_start_column++)+5, "linewidth", linewidth);
-    legend("Gas Engine Throttle", "Tool - Blades", "Second Tool", "Left Wheel", "Right Wheel", 'location','eastoutside');
+    legend("Gas Engine Throttle+5", "Tool - Blades", "Second Tool+5", "Left Wheel", "Right Wheel+5", 'location','eastoutside');
     hold off;
 
   % Saving to PDF and PNG formats:
